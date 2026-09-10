@@ -9,4 +9,20 @@ function calculate() {
     //    - A × B × C
     //    - A + (B × C)
     // 3. Display the results in the respective span elements
+
+    let numA = parseFloat(document.getElementById("numberA"))
+    let numB = parseFloat(document.getElementById("numberB"))
+    let numC = parseFloat(document.getElementById("numberB"))
+
+    let averageOutput = document.getElementById("average")
+    let productOutput = document.getElementById("product")
+    let expressionOutput = document.getElementById("expression")
+
+    let averageResult = parseFloat(( numA + numB + numC ) / 3)
+    let productResult = numA * numB * numC
+    let expressionResult = numA + ( numB * numC )
+
+    averageOutput.textContent = parseFloat(averageResult)
+    productOutput.textContent = productResult
+    expressionOutput.textContent = expressionResult
 }
