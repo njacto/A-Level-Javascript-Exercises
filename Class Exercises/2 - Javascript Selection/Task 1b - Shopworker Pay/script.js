@@ -16,4 +16,22 @@ function calculatePay() {
     // TODO: Calculate total pay
     
     // TODO: Display the hours worked and total amount earned
+
+    let workerAge = parseInt(document.getElementById("age").value)
+    let workHours = parseInt(document.getElementById("hours").value)
+
+    let hourlyWage
+
+    if (workerAge < 18) {
+        hourlyWage = 4.85
+    }
+    else {
+        hourlyWage = 6.35
+    }
+
+    let finalWage = (hourlyWage * workHours).toFixed(2);
+
+    let wageOutput = document.getElementById("result")
+    wageOutput.textContent = "You earned "+finalWage
+
 }
