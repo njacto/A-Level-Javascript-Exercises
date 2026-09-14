@@ -16,4 +16,20 @@ function calculateResult() {
     // TODO: Check if total is greater than 160
     
     // TODO: Display the total mark and whether the student passed or failed
+
+    let paperOneMark = parseInt(document.getElementById("paper1").value)
+    let paperTwoMark = parseInt(document.getElementById("paper2").value)
+    let paperThreeMark = parseInt(document.getElementById("paper3").value)
+
+    let totalMark = paperOneMark + paperTwoMark + paperThreeMark
+
+    let passValue = "Failed"
+
+    if (totalMark > 160) {
+        passValue = "Passed"
+    }
+
+    let passOutput = document.getElementById("result")
+    passOutput.textContent = "You "+passValue+" with a score "+totalMark
+
 }
