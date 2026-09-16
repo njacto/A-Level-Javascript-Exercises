@@ -10,18 +10,37 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to calculate the A-Level grade
 function calculateGrade() {
     // TODO: Get the marks for all four components
-    
+    let component1 = parseInt(document.getElementById("comp1").value)
+    let component2 = parseInt(document.getElementById("comp2").value)
+    let component3 = parseInt(document.getElementById("comp3").value)
+    let component4 = parseInt(document.getElementById("comp4").value);
+ 
     // TODO: Calculate the total marks
+
+    let totalMarks = component1 + component2 + component3 + component4
+    const possibleMarks = 400;
     
     // TODO: Calculate the percentage (total possible marks is 400)
+
+    let markPercentage = ((totalMarks / possibleMarks) * 100).toFixed(0)
+    let possibleGrades = {
+        [80]: "A",
+        [70]: "B",
+        [60]: "C",
+        [50]: "D",
+        [40]: "E",
+    };
+
+    let MarkGradePercentage = Math.round(markPercentage / 10) * 10
+    let studentGrade = possibleGrades[MarkGradePercentage]
+
+    let gradeOutput = document.getElementById("result")
+    let percentageOutput = document.getElementById("percentage")
+
+    if (! studentGrade) {
+        studentGrade = "U"
+    }
     
-    // TODO: Determine the grade based on the percentage
-    // A: 80% or greater
-    // B: 70% or greater
-    // C: 60% or greater
-    // D: 50% or greater
-    // E: 40% or greater
-    // U: Less than 40%
-    
-    // TODO: Display the percentage and grade
+    gradeOutput.textContent = "Grade: "+studentGrade
+    percentageOutput.textContent = "Mark Percentage: "+markPercentage
 }

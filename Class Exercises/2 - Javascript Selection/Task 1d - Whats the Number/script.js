@@ -14,4 +14,17 @@ function checkNumber() {
     // TODO: Check if the number is positive, negative, or zero
     
     // TODO: Display the appropriate message (POSITIVE, NEGATIVE, or ZERO)
+
+    let numberValue = parseInt(document.getElementById("number").value)
+    let numberType = "Negative";
+
+    if (numberValue == 0) {
+        numberType = "Zero"
+    } else if (Math.sign(numberValue) == 1) {
+        numberType = "Positive"
+    };
+
+    let typeOutput = document.getElementById("result")
+    typeOutput.textContent = "The number is "+numberType
+
 }
