@@ -10,8 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to calculate the insurance premium
 function calculatePremium() {
     // TODO: Get values from input fields
+
+    let driverAge = parseInt(document.getElementById("age").value)
+    let noClaimYears = parseInt(document.getElementById("noClaims").value)
+    let previousClaimNum = parseInt(document.getElementById("previousClaims").value)
     
     // TODO: Calculate base premium (£500)
+
+    const basePremium = 500
+    let ageMultiplier = 1
+
+    if (driverAge < 25) {
+        ageMultiplier = 1.5
+    }
+    else if (driverAge > 40) {
+        ageMultiplier = 1.0 - 0.15
+    }
     
     // TODO: Apply age adjustment
     // Under 25: +50%
