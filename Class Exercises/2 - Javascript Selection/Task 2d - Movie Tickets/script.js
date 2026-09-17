@@ -32,9 +32,9 @@ function calculateTotal() {
     }
 
     let dayCosts = {
-        ["Friday"]: +2.50,
-        ["Saturday"]: +2.50,
-        ["Sunday"]: +2.50
+        ["friday"]: +2.50,
+        ["saturday"]: +2.50,
+        ["sunday"]: +2.50
     };
     
 
@@ -47,45 +47,51 @@ function calculateTotal() {
  
         totalCost += (ticketCost * ticketAmount)
     }
-
-    console.log(totalCost.toFixed(2))
     
     // TODO: Apply day of week adjustments
     // Friday-Sunday: +£2.50 per ticket
-
     let dayAdjustment = dayCosts[selectedDay] || 0.00
-    totalCost += dayAdjustment
+    totalCost += (dayAdjustment * ticketAmount)
     
     // TODO: Apply time adjustments
     // Before 5 PM: -£1.50 per ticket
 
-    if (showingTime < 5) {
+    if (parseInt(showingTime) < 17){
         totalCost -= (1.50 * ticketAmount)
     }
     
     // TODO: Calculate subtotal
-
-    let ticketSubtotal = totalCost
     
     // TODO: Check for and apply special discounts
     // Family ticket (2 adults + 2 children): 10% off
     // Group booking (6 or more tickets): 15% off
 
     let discountAmount = 1
+    let discountMessage = "No discounts applied"
+    let familyDiscount = false
+    let groupDiscount = false
 
     if (tickets.Adult == 2 && tickets.Child == 2) {
         discountAmount -= 0.1
+        familyDiscount = true
+
+        discountMessage = "Discounts applied: 10% off for Family tickets (2 adults 2 children)"
     }
 
     if (ticketAmount >= 6) {
         discountAmount -= 0.15
+        groupDiscount = true
+
+        discountMessage = "Discounts applied: 15% off for Group tickets (6+ tickets)"
     }
 
     let finalPrice = totalCost * discountAmount;
 
     let priceOutput = document.getElementById("finalTotal")
+    let subtotalOutput = document.getElementById("subtotal")
+    let discountOutput = document.getElementById("discount")
 
-
-    priceOutput.textContent = "Total: £"+finalPrice
-
+    subtotalOutput.textContent = "Subtotal: £"+totalCost.toFixed(2)
+    priceOutput.textContent = "Total: £"+finalPrice.toFixed(2)
+    discountOutput.textContent = discountMessage
 }
