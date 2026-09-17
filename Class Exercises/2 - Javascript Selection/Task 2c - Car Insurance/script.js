@@ -31,6 +31,43 @@ function calculatePremium() {
     // Under 25: +50%
     // 25-40: No change
     // Over 40: -15%
+
+    let bonusAmount = 1
+    let bonuses = {
+        [0]: 1,
+
+        [1]: 0.9,
+        [2]: 0.9,
+
+        [3]: 0.75,
+        [4]: 0.75,
+        [5]: 0.75,     
+    }
+
+    for (let year = 0; year <= 6; year++) {
+        if (noClaimYears !== year) {
+            continue
+        }
+
+        if (year >= 6) {
+            bonusAmount = 0.65
+        }
+        else {
+            bonusAmount = bonuses[year]
+        }
+
+        break
+    };
+
+    let claimsAdjustment = previousClaimNum * 0.2
+
+    let totalAdjustment = basePremium * ((ageMultiplier * bonusAmount) + previousClaimNum)
+
+    let breakdownOutput = document.getElementById("breakdownSection")
+    let finalPriceOutput = document.getElementById("result")
+
+    breakdownOutput.textContent = "Base Price: "+ basePremium+"  Age adjustment: "+ageMultiplier+"   No claims bonus: "+bonusAmount+"   Claims Adjustment: "+claimsAdjustment.toFixed(1)
+    finalPriceOutput.textContent = "£"+totalAdjustment
     
     // TODO: Apply no claims bonus
     // 0 years: No discount
@@ -42,4 +79,5 @@ function calculatePremium() {
     // Each claim adds 20%
     
     // TODO: Display the final premium and the breakdown of calculations
+
 }
