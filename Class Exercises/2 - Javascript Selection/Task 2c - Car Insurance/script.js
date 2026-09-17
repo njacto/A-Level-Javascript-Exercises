@@ -61,7 +61,7 @@ function calculatePremium() {
 
     let claimsAdjustment = previousClaimNum * 0.2
 
-    let totalAdjustment = basePremium * ((ageMultiplier * bonusAmount) + previousClaimNum)
+    let totalAdjustment = basePremium * ((ageMultiplier * bonusAmount)) + (500 * claimsAdjustment)
 
     let breakdownOutput = document.getElementById("breakdownSection")
     let finalPriceOutput = document.getElementById("result")
