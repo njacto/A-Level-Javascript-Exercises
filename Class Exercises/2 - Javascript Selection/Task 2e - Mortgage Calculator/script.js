@@ -21,28 +21,50 @@ function calculateMortgage() {
     let depositPercent = (depositAmount / housePrice) * 100
     const baseInterest = 0.03
     
-    // TODO: Set base interest rate (3%)
+    let depositInterestRates = {
+        [10]: 0.02,
+        [20]: 0.01,
+    }
+    let addedInterest = parseFloat(baseInterest) + (depositInterestRates[Math.round(depositPercent / 10) * 10]) || baseInterest
+
+    let creditInterestRates = {
+        ["Excellent"]: [950, 800, -0.005],
+        ["Good"]: [799, 700, 0],
+        ["Fair"]: [699, 600, +0.005],
+        ["Poor"]: [600, 0, +0.01],
+    }
+
+    for (let creditScore in creditInterestRates) {
+
+        let maxValue = creditInterestRates[creditScore][0]
+        let minValue = creditInterestRates[creditScore][1]
+        
+        let interestAdjustment = creditInterestRates[creditScore][2]
+
+        if (creditScore <= maxValue && creditScore >= minValue) {
+            addedInterest += interestAdjustment
+
+            break
+        }
+    }
     
-    // TODO: Adjust interest rate based on deposit percentage
-    // 10-15%: Base rate + 2%
-    // 16-25%: Base rate + 1%
-    // Above 25%: Base rate
-    
-    // TODO: Adjust interest rate based on credit score
-    // Excellent (800-950): -0.5%
-    // Good (700-799): No change
-    // Fair (600-699): +0.5%
-    // Poor (below 600): +1%
-    
-    // TODO: Calculate maximum borrowing amount based on employment
-    // Full-time: 4.5× salary
-    // Self-employed: 4× salary
-    // Part-time: 3.5× salary
-    
-    // TODO: Calculate required loan amount (house price - deposit)
-    
-    // TODO: Check if loan amount is within acceptable limit
-    
+    let borrowingAmounts = {
+        ["Full-time Employed"]: 4.5,
+        ["Self-employed"]: 4,
+        ["Part-time"]: 3.5,
+    }
+
+    let requiredLoan = housePrice - depositAmount
+
+    if (requiredLoan > (annualSalary * (borrowingAmounts[employmentStatus]))) {
+        document.getElementById("depositPercentage").textContent = "Required loan exceeds maximum amount"
+    }
+   
+    let totalPaymentNumber = 25 * 12
+    let monthlyInterest = addedInterest / 12
+
+    let monthlyPayment  = ( requiredLoan[monthlyInterest*(1 + monthlyInterest)^totalPaymentNumber] ) / ( [(1 + monthlyInterest)^totalPaymentNumber - 1] )
+    let totalRepayable = requiredLoan*(addedInterest^25)
     // TODO: Calculate monthly payment using the formula:
     // P = L[c(1 + c)^n]/[(1 + c)^n - 1]
     // Where:
@@ -54,4 +76,9 @@ function calculateMortgage() {
     // TODO: Calculate total amount repayable
     
     // TODO: Display all results
+
+    document.getElementById("depositPercentage").textContent = depositPercent
+    document.getElementById("interestRate").textContent = "%"+addedInterest * 100
+    document.getElementById("monthlyPayment").textContent = "£"+ monthlyPayment
+    document.getElementById("totalRepayable").textContent = "£"+ totalRepayable
 }
