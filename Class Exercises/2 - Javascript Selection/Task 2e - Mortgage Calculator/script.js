@@ -77,8 +77,8 @@ function calculateMortgage() {
     
     // TODO: Display all results
 
-    document.getElementById("depositPercentage").textContent = depositPercent
-    document.getElementById("interestRate").textContent = "%"+addedInterest * 100
-    document.getElementById("monthlyPayment").textContent = "£"+ monthlyPayment
-    document.getElementById("totalRepayable").textContent = "£"+ totalRepayable
+    document.getElementById("depositPercentage").textContent = "Deposit Percentage: "+depositPercent
+    document.getElementById("interestRate").textContent = "Interest Rate: "+addedInterest * 100+"%"
+    document.getElementById("monthlyPayment").textContent = "Monthly Payment : £"+ monthlyPayment
+    document.getElementById("totalRepayable").textContent = "Total repayable: £"+ totalRepayable
 }
