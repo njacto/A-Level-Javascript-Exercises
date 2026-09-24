@@ -34,15 +34,17 @@ function calculateMortgage() {
         ["Poor"]: [600, 0, +0.01],
     }
 
-    for (let creditScore in creditInterestRates) {
+    let creditInterestAdjusment 
+    for (let score in creditInterestRates) {
 
-        let maxValue = creditInterestRates[creditScore][0]
-        let minValue = creditInterestRates[creditScore][1]
+        let maxValue = creditInterestRates[score][0]
+        let minValue = creditInterestRates[score][1]
         
-        let interestAdjustment = creditInterestRates[creditScore][2]
+        let interestAdjustment = creditInterestRates[score][2]
 
         if (creditScore <= maxValue && creditScore >= minValue) {
-            addedInterest += interestAdjustment
+            creditInterestAdjusment = interestAdjustment
+            
 
             break
         }
@@ -54,16 +56,16 @@ function calculateMortgage() {
         ["Part-time"]: 3.5,
     }
 
-    let requiredLoan = housePrice - depositAmount
+    let requiredLoan = parseFloat(housePrice - depositAmount)
 
     if (requiredLoan > (annualSalary * (borrowingAmounts[employmentStatus]))) {
         document.getElementById("depositPercentage").textContent = "Required loan exceeds maximum amount"
     }
    
-    let totalPaymentNumber = 25 * 12
-    let monthlyInterest = addedInterest / 12
+    let totalPaymentNumber = parseFloat(25 * 12)
+    let monthlyInterest = parseFloat(addedInterest / 12)
 
-    let monthlyPayment  = ( requiredLoan[monthlyInterest*(1 + monthlyInterest)^totalPaymentNumber] ) / ( [(1 + monthlyInterest)^totalPaymentNumber - 1] )
+    let monthlyPayment = requiredLoan * (monthlyInterest * ((1 + monthlyInterest) ** totalPaymentNumber)) / (((1 + monthlyInterest) ** totalPaymentNumber) - 1);
     let totalRepayable = requiredLoan*(addedInterest^25)
     // TODO: Calculate monthly payment using the formula:
     // P = L[c(1 + c)^n]/[(1 + c)^n - 1]
@@ -77,8 +79,8 @@ function calculateMortgage() {
     
     // TODO: Display all results
 
-    document.getElementById("depositPercentage").textContent = "Deposit Percentage: "+depositPercent
-    document.getElementById("interestRate").textContent = "Interest Rate: "+addedInterest * 100+"%"
-    document.getElementById("monthlyPayment").textContent = "Monthly Payment : £"+ monthlyPayment
+    document.getElementById("depositPercentage").textContent = "Deposit Percentage: "+depositPercent.toFixed(2)
+    document.getElementById("interestRate").textContent = "Interest Rate: "+((parseFloat(addedInterest)+parseFloat(creditInterestAdjusment)) * 100).toFixed(1)+"%"
+    document.getElementById("monthlyPayment").textContent = "Monthly Payment : £"+ monthlyPayment.toFixed(2)
     document.getElementById("totalRepayable").textContent = "Total repayable: £"+ totalRepayable
 }
